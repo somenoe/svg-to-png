@@ -8,7 +8,7 @@ use std::time::Duration;
 
 /// SVG to PNG converter with file watching
 #[derive(Parser, Debug)]
-#[command(author, version, about, long_about = None)]
+#[command(author, about, long_about = None, disable_version_flag = true)]
 struct Args {
     /// Input folder to watch for SVG files
     #[arg(short, long, default_value = ".")]
@@ -21,6 +21,14 @@ struct Args {
     /// Convert all existing SVG files on startup
     #[arg(short = 'e', long, default_value_t = false)]
     convert_existing: bool,
+
+    /// One-time conversion without watching (no file watcher)
+    #[arg(short = 'n', long, default_value_t = false)]
+    no_watch: bool,
+
+    /// Print version
+    #[arg(short = 'v', long = "version")]
+    version: bool,
 }
 
 /// Convert an SVG file to PNG
@@ -87,6 +95,12 @@ fn convert_existing_files(input_path: &Path, output_path: &Path) -> Result<()> {
 fn main() -> Result<()> {
     let args = Args::parse();
 
+    // Handle version flag
+    if args.version {
+        println!("svg-to-png {}", env!("CARGO_PKG_VERSION"));
+        return Ok(());
+    }
+
     // Create input and output directories
     let input_path = PathBuf::from(&args.input);
     let output_path = PathBuf::from(&args.output);
@@ -94,10 +108,16 @@ fn main() -> Result<()> {
     fs::create_dir_all(&input_path)?;
     fs::create_dir_all(&output_path)?;
 
-    // Convert existing files if requested
-    if args.convert_existing {
+    // Convert existing files if requested or in no-watch mode
+    if args.convert_existing || args.no_watch {
         println!("Converting existing SVG files...");
         convert_existing_files(&input_path, &output_path)?;
+    }
+
+    // If no-watch mode, exit after converting
+    if args.no_watch {
+        println!("Conversion complete. Exiting (no-watch mode).");
+        return Ok(());
     }
 
     // Set up file watcher

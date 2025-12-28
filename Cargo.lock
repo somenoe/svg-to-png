@@ -555,6 +555,19 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7da8b5736845d9f2fcb837ea5d9e2628564b3b043a70948a3f0b778838c5fb4f"
 
 [[package]]
+name = "svg-to-png"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "clap",
+ "fontdb",
+ "notify",
+ "resvg",
+ "tiny-skia",
+ "usvg",
+]
+
+[[package]]
 name = "svgfilters"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -571,19 +584,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "22975e8a2bac6a76bb54f898a6b18764633b00e780330f0b689f65afb3975564"
 dependencies = [
  "siphasher",
-]
-
-[[package]]
-name = "svgwatcher"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "clap",
- "fontdb",
- "notify",
- "resvg",
- "tiny-skia",
- "usvg",
 ]
 
 [[package]]
