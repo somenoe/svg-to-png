@@ -1,0 +1,13 @@
+[package]
+name = "svgwatcher"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+clap = { version = "4.3", features = ["derive"] }
+notify = "6.1"
+resvg = "0.20.0"
+usvg = "0.20.0"
+fontdb = "0.7"
+tiny-skia = "0.6"
+anyhow = "1.0"
