@@ -1,4 +1,4 @@
-# SVG Watcher
+# SVG to PNG
 
 A Rust CLI tool that watches a folder for `.svg` file changes and automatically converts them to `.png` files using the `resvg` rendering engine.
 
@@ -15,7 +15,7 @@ Ensure you have Rust installed. Then, clone the repository and build the project
 
 ```bash
 git clone <repository-url>
-cd svgwatcher
+cd svg-to-png
 cargo build --release
 ```
 
@@ -39,12 +39,16 @@ cargo run -- --input ./svgs --output ./pngs --convert-existing
 - `-i, --input <DIR>`: Input folder to watch for SVG files (default: `.`)
 - `-o, --output <DIR>`: Output folder for PNG files (default: `out`)
 - `-e, --convert-existing`: Convert all existing SVG files on startup (default: `false`)
+- `-n, --no-watch`: One-time conversion without watching (no file watcher)
+- `-v, --version`: Print version information
 
 ## Dependencies
 
 - [clap](https://crates.io/crates/clap) - Command-line argument parsing
 - [notify](https://crates.io/crates/notify) - File system notification
 - [resvg](https://crates.io/crates/resvg) - SVG rendering
+- [fontdb](https://crates.io/crates/fontdb) - Font database for text rendering
+- [anyhow](https://crates.io/crates/anyhow) - Error handling
 - [usvg](https://crates.io/crates/usvg) - SVG parsing
 - [tiny-skia](https://crates.io/crates/tiny-skia) - 2D graphics library
 
