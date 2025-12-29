@@ -1,5 +1,5 @@
 [package]
-name = "svg-to-png"
+name = "svg-to-png-cli"
 version = "0.1.0"
 edition = "2024"
 description = "A CLI tool that auto-converts SVG files to PNG on file changes"
