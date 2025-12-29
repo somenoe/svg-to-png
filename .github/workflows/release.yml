@@ -77,8 +77,6 @@ jobs:
     needs: build-and-test
     if: github.event_name == 'release'
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
 
     steps:
       - name: Download all artifacts
@@ -87,7 +85,10 @@ jobs:
           path: artifacts
 
       - name: Upload release assets
-        uses: softprops/action-gh-release@v1
+        uses: svenstaro/upload-release-action@v2
         with:
-          files: artifacts/**/*
-          token: ${{ secrets.GITHUB_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: artifacts/**/*
+          tag: ${{ github.ref_name }}
+          overwrite: true
+          file_glob: true
