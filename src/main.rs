@@ -42,8 +42,10 @@ fn convert(svg: &Path, png: &Path) -> Result<()> {
     fontdb.load_system_fonts();
 
     // Parse SVG with font database for proper text rendering
-    let mut opt = usvg::Options::default();
-    opt.fontdb = Arc::new(fontdb);
+    let opt = usvg::Options {
+        fontdb: Arc::new(fontdb),
+        ..Default::default()
+    };
 
     let tree = usvg::Tree::from_data(&svg_data, &opt)?;
 
@@ -71,15 +73,16 @@ fn convert_existing_files(input_path: &Path, output_path: &Path) -> Result<()> {
         let entry = entry?;
         let path = entry.path();
 
-        if path.is_file() && path.extension().and_then(|s| s.to_str()) == Some("svg") {
-            if let Some(stem) = path.file_stem() {
-                let mut png_path = output_path.to_path_buf();
-                png_path.push(stem);
-                png_path.set_extension("png");
+        if path.is_file()
+            && path.extension().and_then(|s| s.to_str()) == Some("svg")
+            && let Some(stem) = path.file_stem()
+        {
+            let mut png_path = output_path.to_path_buf();
+            png_path.push(stem);
+            png_path.set_extension("png");
 
-                if let Err(e) = convert(&path, &png_path) {
-                    eprintln!("Error converting {}: {}", path.display(), e);
-                }
+            if let Err(e) = convert(&path, &png_path) {
+                eprintln!("Error converting {}: {}", path.display(), e);
             }
         }
     }
