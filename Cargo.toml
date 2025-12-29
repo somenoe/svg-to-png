@@ -11,3 +11,8 @@ usvg = "0.20.0"
 fontdb = "0.7"
 tiny-skia = "0.6"
 anyhow = "1.0"
+
+[dev-dependencies]
+tempfile = "3.8"
+assert_fs = "1.1"
+predicates = "3.0"
