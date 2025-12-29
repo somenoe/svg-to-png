@@ -90,14 +90,14 @@ jobs:
           cd artifacts
           for dir in svg-to-png-*/; do
             os=$(basename "$dir" | sed 's/svg-to-png-//')
-            zip -r "svg-to-png-${os}.zip" "$dir"
+            (cd "$dir" && zip -r "../svg-to-png-${os}.zip" *)
           done
 
       - name: Upload release assets
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GH_PAT }}
-          file: artifacts/**/*
+          file: artifacts/*.zip
           tag: ${{ github.ref_name }}
           overwrite: true
           file_glob: true
