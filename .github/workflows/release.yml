@@ -84,6 +84,15 @@ jobs:
         with:
           path: artifacts
 
+      - name: Package artifacts as zip
+        shell: bash
+        run: |
+          cd artifacts
+          for dir in svg-to-png-*/; do
+            os=$(basename "$dir" | sed 's/svg-to-png-//')
+            zip -r "svg-to-png-${os}.zip" "$dir"
+          done
+
       - name: Upload release assets
         uses: svenstaro/upload-release-action@v2
         with:
