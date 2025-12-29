@@ -2,6 +2,13 @@
 name = "svg-to-png"
 version = "0.1.0"
 edition = "2024"
+description = "A CLI tool that auto-converts SVG files to PNG on file changes"
+license = "MIT"
+repository = "https://github.com/somenoe/svg-to-png"
+readme = "README.md"
+keywords = ["cli", "svg", "png", "watch"]
+categories = ["command-line-utilities"]
+
 
 [dependencies]
 clap = { version = "4.5", features = ["derive"] }
