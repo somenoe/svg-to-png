@@ -66,9 +66,9 @@ jobs:
       - name: Upload release artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: svg-to-png-${{ matrix.os }}
+          name: svg-to-png-cli-${{ matrix.os }}
           path: |
-            target/release/svg-to-png${{ matrix.os == 'windows-latest' && '.exe' || '' }}
+            target/release/svg-to-png-cli${{ matrix.os == 'windows-latest' && '.exe' || '' }}
             target/release/svgwatcher${{ matrix.os == 'windows-latest' && '.exe' || '' }}
           retention-days: 7
 
@@ -88,9 +88,9 @@ jobs:
         shell: bash
         run: |
           cd artifacts
-          for dir in svg-to-png-*/; do
-            os=$(basename "$dir" | sed 's/svg-to-png-//')
-            (cd "$dir" && zip -r "../svg-to-png-${os}.zip" *)
+          for dir in svg-to-png-cli-*/; do
+            os=$(basename "$dir" | sed 's/svg-to-png-cli-//')
+            (cd "$dir" && zip -r "../svg-to-png-cli-${os}.zip" *)
           done
 
       - name: Upload release assets

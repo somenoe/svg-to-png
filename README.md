@@ -1,4 +1,4 @@
-# SVG to PNG
+# SVG to PNG CLI
 
 A Rust CLI tool that watches a folder for `.svg` file changes and automatically converts them to `.png` files using the `resvg` rendering engine.
 
@@ -14,8 +14,8 @@ A Rust CLI tool that watches a folder for `.svg` file changes and automatically 
 Ensure you have Rust installed. Then, clone the repository and build the project:
 
 ```bash
-git clone <repository-url>
-cd svg-to-png
+git clone https://github.com/somenoe/svg-to-png-cli.git
+cd svg-to-png-cli
 cargo build --release
 ```
 

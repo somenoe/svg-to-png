@@ -8,7 +8,7 @@ fn get_binary_path() -> std::path::PathBuf {
     let mut path = std::env::current_exe().unwrap();
     path.pop(); // Remove test executable name
     path.pop(); // Remove deps directory
-    path.push("svg-to-png");
+    path.push("svg-to-png-cli");
     if cfg!(windows) {
         path.set_extension("exe");
     }
@@ -32,7 +32,7 @@ fn test_version_flag() {
 
     assert!(output.status.success());
     let stdout = String::from_utf8_lossy(&output.stdout);
-    assert!(stdout.contains("svg-to-png"));
+    assert!(stdout.contains("svg-to-png-cli"));
     assert!(stdout.contains("0.1.0"));
 }
 
@@ -45,7 +45,7 @@ fn test_short_version_flag() {
 
     assert!(output.status.success());
     let stdout = String::from_utf8_lossy(&output.stdout);
-    assert!(stdout.contains("svg-to-png"));
+    assert!(stdout.contains("svg-to-png-cli"));
 }
 
 #[test]

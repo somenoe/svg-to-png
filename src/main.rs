@@ -94,7 +94,7 @@ fn main() -> Result<()> {
 
     // Handle version flag
     if args.version {
-        println!("svg-to-png {}", env!("CARGO_PKG_VERSION"));
+        println!("svg-to-png-cli {}", env!("CARGO_PKG_VERSION"));
         return Ok(());
     }
 
