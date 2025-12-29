@@ -4,15 +4,15 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-clap = { version = "4.3", features = ["derive"] }
-notify = "6.1"
-resvg = "0.20.0"
-usvg = "0.20.0"
-fontdb = "0.7"
-tiny-skia = "0.6"
+clap = { version = "4.5", features = ["derive"] }
+notify = "8.2"
+resvg = "0.45.1"
+usvg = "0.45.1"
+fontdb = "0.23"
+tiny-skia = "0.11"
 anyhow = "1.0"
 
 [dev-dependencies]
-tempfile = "3.8"
+tempfile = "3.24"
 assert_fs = "1.1"
-predicates = "3.0"
+predicates = "3.1"

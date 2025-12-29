@@ -3,6 +3,7 @@ use clap::Parser;
 use notify::{Config, Event, EventKind, RecommendedWatcher, RecursiveMode, Watcher};
 use std::fs;
 use std::path::{Path, PathBuf};
+use std::sync::Arc;
 use std::sync::mpsc::channel;
 use std::time::Duration;
 
@@ -42,26 +43,19 @@ fn convert(svg: &Path, png: &Path) -> Result<()> {
 
     // Parse SVG with font database for proper text rendering
     let mut opt = usvg::Options::default();
-    opt.fontdb = fontdb;
-    opt.keep_named_groups = false;
+    opt.fontdb = Arc::new(fontdb);
 
-    let tree = usvg::Tree::from_data(&svg_data, &opt.to_ref())?;
+    let tree = usvg::Tree::from_data(&svg_data, &opt)?;
 
     // Get the SVG size
-    let size = tree.svg_node().size;
+    let size = tree.size();
 
     // Create a pixmap
     let mut pixmap = tiny_skia::Pixmap::new(size.width() as u32, size.height() as u32)
         .ok_or_else(|| anyhow::anyhow!("Failed to create pixmap"))?;
 
     // Render SVG to pixmap
-    resvg::render(
-        &tree,
-        usvg::FitTo::Original,
-        tiny_skia::Transform::default(),
-        pixmap.as_mut(),
-    )
-    .ok_or_else(|| anyhow::anyhow!("Failed to render SVG"))?;
+    resvg::render(&tree, tiny_skia::Transform::default(), &mut pixmap.as_mut());
 
     // Save as PNG
     pixmap.save_png(png)?;
